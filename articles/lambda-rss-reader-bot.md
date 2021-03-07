@@ -14,11 +14,12 @@ published: false
     - Lambdaをコンテナで動かす
 
 ## 成果物
-- 登録しておいたサイトのRSSが1時間おきに自動取得され、Discordの専用チャンネルに投稿されます
-    - ここ画像
+- 登録しておいたサイトのRSSが1時間おきに自動取得され、リンクとタイトルがDiscordに投稿されます
+![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/discord-webhook-example.png)
 
 ## 構成図
-- ここ画像
+![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/architecture.png)
+
 - EventbridgeをトリガーにRSS情報を取得するLambdaが起動し、webhookでdiscordに送信します
 - RSS取得先URLはSystems Managerパラメータストアに保存します。デプロイなしでURLの追加変更ができ便利です
 - Lambdaはコンテナイメージを利用して動きます、言語はPythonです
@@ -64,7 +65,7 @@ def get_rss(endpoint: str) -> List[RssContent]:
         - 詳しくは[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-image.html)へ
     - コンテナを利用するLambdaの作成自体はGUIから可能です。  
     作成時にコンテナイメージを保存したURIを求められるので、次項のデプロイを済ませてから作成します  
-    (ここ画像)
+    ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/lambda-config.png)
 ### デプロイ(Github Actions)
 - [参考](https://dev.classmethod.jp/articles/github-action-ecr-push/)
 - 上記記事を参考に以下を行うことでデプロイの自動化が可能です
@@ -76,7 +77,7 @@ def get_rss(endpoint: str) -> List[RssContent]:
 ### webhookURL・RSS取得先URLの管理(Systems Manager)
 - URL類はSystems Managerパラメータストアに保存します
     - RSS取得先URLについては改行区切りで単一パラメータに保存してしまっています  
-- (ここ画像)
+![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/ssm-params.png)
 - LambdaからSystems Managerを参照し、パラメータを改行で分割することでRSS取得先URLをLambdaに与えます
 ```
 from typing import List
