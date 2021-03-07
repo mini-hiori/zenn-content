@@ -22,9 +22,10 @@ published: false
 
 - LambdaがRSS情報を取得し、webhookを利用してDiscordに通知します
     - LambdaはEventbridgeにより1時間おきに自動実行されます
-- RSS取得先URLはSystems Managerパラメータストアに保存します。デプロイなしでURLの追加変更ができ便利です
-- Lambdaはコンテナイメージを利用して動きます、言語はPythonです
-    - デプロイはgithub Actionsを利用して自動化しています
+- RSS取得先URLはSystems Managerパラメータストアに保存します
+    - URLの追加変更はデプロイを介さず可能です
+- Lambdaはコンテナイメージを利用して動きます、言語はpythonです
+    - デプロイはGithub Actionsを利用して自動化しています
 
 ## 実装
 - リポジトリ全体はこちら
