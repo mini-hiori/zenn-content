@@ -20,7 +20,8 @@ published: false
 ## 構成図
 ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/architecture.png)
 
-- EventbridgeをトリガーにRSS情報を取得するLambdaが起動し、webhookでdiscordに送信します
+- LambdaがRSS情報を取得し、webhookを利用してDiscordに通知します
+    - LambdaはEventbridgeにより1時間おきに自動実行されます
 - RSS取得先URLはSystems Managerパラメータストアに保存します。デプロイなしでURLの追加変更ができ便利です
 - Lambdaはコンテナイメージを利用して動きます、言語はPythonです
     - デプロイはgithub Actionsを利用して自動化しています
@@ -59,8 +60,9 @@ def get_rss(endpoint: str) -> List[RssContent]:
     return rss_list
 ``` 
 - Lambdaはコンテナイメージで動かします
-    - Dockerfileは[こちら]()
-    - [VSCode Remote Containers]()を利用すると、このDockerfileで作られるコンテナの中で開発ができます
+    - Dockerfileは[こちら](https://github.com/mini-hiori/lambda-rss-reader-bot/blob/master/Dockerfile)
+    - VSCode Remote Containerを利用すると、このDockerfileで作られるコンテナの中で開発ができます
+        - [参考](https://qiita.com/d0ne1s/items/d2649801c6f804019db7)
     - コンテナを利用する場合でも、handler関数を作成してその中のコードを動かす点は同じです
         - 詳しくは[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-image.html)へ
     - コンテナを利用するLambdaの作成自体はGUIから可能です。  
