@@ -25,7 +25,8 @@ published: false
     - デプロイはgithub Actionsを利用して自動化しています
 
 ## 実装
-    - リポジトリ全体は[こちら](https://github.com/mini-hiori/lambda-rss-reader-bot)
+- リポジトリ全体はこちら
+    - https://github.com/mini-hiori/lambda-rss-reader-bot
 ### RSSリーダー本体(Lambda)
 - RSSの取得&解析はfeedparserというライブラリを利用して行います
     - [参考](https://note.nkmk.me/python-feedparser-tutorial/)
