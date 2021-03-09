@@ -1,5 +1,5 @@
 ---
-title: "[python,AWS]RSSをサーバーレスに自動取得してみる"
+title: "[python,AWS]RSSをサーバーレスに自動取得してDiscordに送ってみる"
 emoji: "🐍"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [AWS,Lambda,python,Docker,VS Code]
@@ -8,9 +8,9 @@ published: false
 
 ## はじめに
 - 生まれながらにRSSリーダーを自作したい欲求があったので、自作しました
-- 以下を試せます
+- 以下を試しました
     - VSCode Remote Containerで開発
-    - Cloudwatch(Eventbridge)によるLambdaの定期実行
+    - EventbridgeによるLambdaの定期実行
     - Lambdaをコンテナで動かす
 
 ## 成果物
@@ -118,3 +118,6 @@ def get_target_url() -> List[str]:
 - pythonのDockerfileはalpineでない方がパフォーマンスが良いらしく、改善の余地があります
     - [参考](https://pythonspeed.com/articles/alpine-docker-python/)
     - AWS公式もalpineで紹介していたので今回は流用しましたが、次回はbuster系で試す予定です
+- スクレイピング系の処理をLambdaで実行するのは実はコスパがよくない説があります
+    - [参考](https://blog.yuuk.io/entry/2017/lambda-disadvantages-from-a-cost-viewpoint)
+    - [FargateのScheduled task](https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/scheduled_tasks.html)でも同様の挙動は実現できるはず
