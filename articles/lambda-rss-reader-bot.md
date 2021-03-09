@@ -17,7 +17,7 @@ published: false
 
 ## 成果物
 - 登録しておいたサイトのRSSが1時間おきに自動取得され、リンクとタイトルがDiscordに投稿されます
-![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/discord-webhook-example.png)
+![Joinおめでとうございます](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/discord-webhook-example.png)
 
 ## 構成図
 ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/architecture.png)
@@ -64,10 +64,9 @@ def get_rss(endpoint: str) -> List[RssContent]:
 ``` 
 - Lambdaはコンテナイメージで動かします
     - Dockerfileは[こちら](https://github.com/mini-hiori/lambda-rss-reader-bot/blob/master/Dockerfile)
+        - ほぼ[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-image.html)の引用です
     - VSCode Remote Containerを利用すると、このDockerfileで作られるコンテナの中で開発ができます
         - [参考](https://qiita.com/d0ne1s/items/d2649801c6f804019db7)
-    - コンテナを利用する場合でも、handler関数を作成してその中のコードを動かす点は同じです
-        - 詳しくは[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-image.html)へ
     - コンテナを利用するLambdaの作成自体はGUIから可能です。  
     作成時にコンテナイメージを保存したURIを求められるので、次項のデプロイを済ませてから作成します  
     ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/lambda-config.png)
