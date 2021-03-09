@@ -33,8 +33,7 @@ published: false
 - リポジトリ全体はこちら
     - https://github.com/mini-hiori/lambda-rss-reader-bot
 ### RSSリーダー本体(Lambda)
-- RSSの取得&解析はfeedparserというライブラリを利用して行います
-    - [参考](https://note.nkmk.me/python-feedparser-tutorial/)
+- RSSの取得&解析はfeedparserというライブラリを利用して行います([参考](https://note.nkmk.me/python-feedparser-tutorial/))
     - 最小構成は以下です、get_rssにRSSのURLを渡すと記事情報が得られます
 ```
 import feedparser
@@ -65,8 +64,7 @@ def get_rss(endpoint: str) -> List[RssContent]:
 - Lambdaはコンテナイメージで動かします
     - Dockerfileは[こちら](https://github.com/mini-hiori/lambda-rss-reader-bot/blob/master/Dockerfile)
         - ほぼ[公式ドキュメント](https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-image.html)の引用です
-    - VSCode Remote Containerを利用すると、このDockerfileで作られるコンテナの中で開発ができます
-        - [参考](https://qiita.com/d0ne1s/items/d2649801c6f804019db7)
+    - VSCode Remote Containerを利用すると、このDockerfileで作られるコンテナの中で開発ができます([参考](https://qiita.com/d0ne1s/items/d2649801c6f804019db7))
     - コンテナを利用するLambdaの作成自体はGUIから可能です。  
     作成時にコンテナイメージを保存したURIを求められるので、次項のデプロイを済ませてから作成します  
     ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/lambda-config.png)
@@ -116,9 +114,7 @@ def get_target_url() -> List[str]:
 
 ## 改善点
 - LambdaやECR、Eventbridgeは今回手動作成しましたが、本当はSAWやterraform等でコード化した方が良いと思います
-- pythonのDockerfileはalpineでない方がパフォーマンスが良いらしく、改善の余地があります
-    - [参考](https://pythonspeed.com/articles/alpine-docker-python/)
+- pythonのDockerfileはalpineでない方がパフォーマンスが良いらしく、改善の余地があります([参考](https://pythonspeed.com/articles/alpine-docker-python/))
     - AWS公式もalpineで紹介していたので今回は流用しましたが、次回はbuster系で試す予定です
-- スクレイピング系の処理をLambdaで実行するのは実はコスパがよくない説があります
-    - [参考](https://blog.yuuk.io/entry/2017/lambda-disadvantages-from-a-cost-viewpoint)
+- スクレイピング系の処理をLambdaで実行するのは実はコスパがよくない説があります([参考](https://blog.yuuk.io/entry/2017/lambda-disadvantages-from-a-cost-viewpoint))
     - [FargateのScheduled task](https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/scheduled_tasks.html)でも同様の挙動は実現できるはず
