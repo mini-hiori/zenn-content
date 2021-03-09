@@ -3,7 +3,7 @@ title: "[python,AWS]RSSをサーバーレスに自動取得してDiscordに送�
 emoji: "🐍"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [AWS,Lambda,python,Docker,VS Code,Discord]
-published: false
+published: true
 ---
 
 ## はじめに
