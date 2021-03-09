@@ -105,8 +105,7 @@ def get_target_url() -> List[str]:
 - ここまでで、Lambdaを手動実行すればRSSがDiscordに送られる状態が実現します
 
 ### 定期実行(Eventbridge)
-- [参考](https://dev.startialab.blog/etc/a105)
-- EventbridgeをLambdaのトリガーに設定すると定期実行が可能です
+- EventbridgeをLambdaのトリガーに設定すると定期実行が可能です([参考](https://dev.startialab.blog/etc/a105))
 ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/lambda-with-eventbridge.png)
 - 今回は1時間おきに実行するので「rate(1 hour)」で設定しました
     - rateは開始時間を設定できないようです。  
