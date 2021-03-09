@@ -13,6 +13,7 @@ published: false
     - VSCode Remote Containerで開発
     - EventbridgeによるLambdaの定期実行
     - Lambdaをコンテナで動かす
+    - Systems ManagerパラメータストアとLambdaの連携
 
 ## 成果物
 - 登録しておいたサイトのRSSが1時間おきに自動取得され、リンクとタイトルがDiscordに投稿されます
