@@ -7,7 +7,7 @@ published: false
 ---
 
 ## はじめに
-- 生まれながらにRSSリーダーを自作したい欲求があったので、自作しました
+- 生まれながらにサーバーレスなRSSリーダーを自作したい欲求があったので、自作しました
 - 以下を試しました
     - Lambdaでスクレイピング、Discordにwebhookで投稿
     - VSCode Remote Containerで開発
