@@ -2,13 +2,14 @@
 title: "[python,AWS]RSSをサーバーレスに自動取得してDiscordに送ってみる"
 emoji: "🐍"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [AWS,Lambda,python,Docker,VS Code]
+topics: [AWS,Lambda,python,Docker,VS Code,Discord]
 published: false
 ---
 
 ## はじめに
 - 生まれながらにRSSリーダーを自作したい欲求があったので、自作しました
 - 以下を試しました
+    - Lambdaでスクレイピング、Discordにwebhookで投稿
     - VSCode Remote Containerで開発
     - EventbridgeによるLambdaの定期実行
     - Lambdaをコンテナで動かす
