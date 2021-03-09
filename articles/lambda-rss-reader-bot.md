@@ -75,7 +75,8 @@ def get_rss(endpoint: str) -> List[RssContent]:
     - IAMユーザーの作成
     - Github Actionsのyamlファイル作成、.github/workflows/main.ymlに配置
     - GitHubのSecretsにIAMログイン情報等を記載
-        - AWS_ECR_REPO_NAMEにはリポジトリ名を記載することに注意。URIではありません(1敗)
+        - AWS_ECR_REPO_NAMEにはリポジトリ名を記載することに注意。URIではありません  
+        (1敗)
 ### webhookURL・RSS取得先URLの管理(Systems Manager)
 - URL類はSystems Managerパラメータストアに保存します
     - RSS取得先URLについては改行区切りで単一パラメータに保存してしまっています  
@@ -99,13 +100,14 @@ def get_target_url() -> List[str]:
     return url_list
 ```
 - DiscordのwebhookURLについても同様にSystems Managerに保存しています
-    - webhookURL自体の取得については[こちら](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
+    - DiscordのwebhookURL自体の発行については[こちら](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
 
 - ここまでで、Lambdaを手動実行すればRSSがDiscordに送られる状態が実現します
 
 ### 定期実行(Eventbridge)
 - [参考](https://dev.startialab.blog/etc/a105)
 - EventbridgeをLambdaのトリガーに設定すると定期実行が可能です
+![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/lambda-with-eventbridge.png)
 - 今回は1時間おきに実行するので「rate(1 hour)」で設定しました
     - rateは開始時間を設定できないようです。  
     試した限りではEventbridgeの設定完了直後〜数分後までに1回目が起動して、以降はrateの周期にしたがって動きます
@@ -113,8 +115,8 @@ def get_target_url() -> List[str]:
 - RSS情報が1時間おきにDiscordに送られれば完成です
 
 ## 改善点
-- LambdaやECR、Eventbridgeは今回手動作成しましたが、本当はSAWやterraform等でコード化した方が良いと思います
+- LambdaやECR、Eventbridgeは今回手動作成しましたが、SAMやterraform,serverless frameworkでデプロイした方が再利用性があって良さそうです
 - pythonのDockerfileはalpineでない方がパフォーマンスが良いらしく、改善の余地があります([参考](https://pythonspeed.com/articles/alpine-docker-python/))
     - AWS公式もalpineで紹介していたので今回は流用しましたが、次回はbuster系で試す予定です
-- スクレイピング系の処理をLambdaで実行するのは実はコスパがよくない説があります([参考](https://blog.yuuk.io/entry/2017/lambda-disadvantages-from-a-cost-viewpoint))
+- スクレイピング系の処理をLambdaで実行するのはコスパがあまりよくないそうです([参考](https://blog.yuuk.io/entry/2017/lambda-disadvantages-from-a-cost-viewpoint))
     - [FargateのScheduled task](https://docs.aws.amazon.com/ja_jp/AmazonECS/latest/userguide/scheduled_tasks.html)でも同様の挙動は実現できるはず
