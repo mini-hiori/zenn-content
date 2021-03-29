@@ -5,3 +5,5 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [AWS,Lambda,python,Docker,DynamoDB,Discord]
 published: false
 ---
+
+## はじめに
