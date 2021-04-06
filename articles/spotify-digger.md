@@ -42,7 +42,7 @@ published: false
 - リポジトリ全体はこちら
     - https://github.com/mini-hiori/spotify-digger
 
-### Lambda(アーティスト検索、Discord投稿)
+### Spotify APIの利用(アーティスト検索)
 - Spotifyの検索のためにSpotifyAPI利用権の取得が必要です
     - Spotifyのアカウントを持っていれば非商用なら無償で利用できます([参考](https://qiita.com/shirok/items/ba5c45511498b75aac27))
 - PythonからSpotifyAPIを利用する際は[spotipy](https://spotipy.readthedocs.io/en/2.17.1/)を利用します
@@ -68,12 +68,8 @@ spotify.artist_related_artists(mini_hiori_uri)
 
 ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/spotify-digger/get_spotify_uri.png)
 
-- この検索結果をDiscordにwebhookで投稿すれば、検索部分に関しては完成です
-    - 今回は検索結果アーティストの曲情報も手に入れるためにartist_albums関数を追加で利用しています
-    - レコメンド対象にするアーティストはLambda1回の実行あたり3人までとしました
-
 ### DynamoDB(アーティスト情報の保存)
-- SpotifyAPIでの関連アーティスト検索の種となるアーティスト情報を保存する先が必要です。今回はDynamoDBを利用します
+- 関連アーティスト検索の元データ(好きなアーティスト)の保存先としてDynamoDBを利用します
     - [作成方法等参考](https://qiita.com/blackcat5016/items/e41f7fb8b6b7a0c9b90b)
     - 請求モードはオンデマンドでよいと思います
 - テーブル定義は以下になります
@@ -83,16 +79,20 @@ spotify.artist_related_artists(mini_hiori_uri)
 | ---- | ---- | ---- | ---- |
 |  アーティストのSpotifyURI |  アーティスト名  |  レコード作成日  |
 
-- 最初に検索の種にするアーティスト情報についてはAWSコンソール上から手動で投入してしまってかまいません
+- 最初に検索の種にするアーティスト情報についてはAWSコンソール上から手動で投入します
 
 ![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/spotify-digger/dynamodb_create.png)
 
-- Lambdaでは以下操作を行います
-    - Lambda起動時にDynamoDBの全データを取得(scan)
-    - SpotifyAPIの検索結果をDynamoDBにput
-    - DynamoDB内のレコード数が一定数(300件)を超過していたら、putしたレコード数と同数のレコードをランダムに削除
+### Lambda(検索、DynamoDBの操作)
+- SpotifyAPIを利用した検索とDynamoDBの操作のためにLambdaを利用します
+- 1回のLambda実行で以下の操作を行います
+    1. Lambda起動時にDynamoDBの全データを取得(scan)
+    2. DynamoDB内のアーティストデータを利用してSpotify検索。新しいアーティストの情報を3人まで得る
+    3. Spotify検索結果をDynamoDBにput
+    4. DynamoDB内のレコード数が一定数(300件)を超過していたら、putしたレコード数と同数のレコードをランダムに削除
         - 実行時間やコストが無限に増えることを防止します
-    - PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します]()
+    5. Spotify検索結果をwebhook経由でDiscordに投稿
+- PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します]()
 
 - ここまでで、自動digアプリとしての基本的な機能は完成です
 
@@ -101,8 +101,7 @@ spotify.artist_related_artists(mini_hiori_uri)
     - 具体的な実行手順は[こちらなどを参考にしてください](https://dev.classmethod.jp/articles/api-gateway-lambda-integration-fabu/)
 - APIGatewayとLambdaの統合にはプロキシ統合と非プロキシ統合の2種類がありますが、今回はGETどちらでもかまいません
     - プロキシ統合の有無による主な違いはLambdaの出力結果のマッピングをAPIGatewayに移譲するかどうかです。Lambdaの出力結果をAPIを介して他ツールで利用したい場合はプロキシ統合が必要になるはず
-    - プロキシ統合を利用する場合は、Lambdaの返却値をAPIGatewayが解釈できる形に合わせることに注意してください
-        - [参考](https://qiita.com/polarbear08/items/3f5b8584154931f99f43)
+    - プロキシ統合を利用する場合は、Lambdaの返却値をAPIGatewayが解釈できる形に合わせることに注意してください([参考](https://qiita.com/polarbear08/items/3f5b8584154931f99f43))
 
 ### そのほか
 - 以下サービス・機能を利用していますが、これらは[前回記事](https://zenn.dev/mini_hiori/articles/lambda-rss-reader-bot#%E5%AE%9F%E8%A3%85)とほぼ設定が同じのため割愛します
