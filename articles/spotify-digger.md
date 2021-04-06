@@ -72,7 +72,7 @@ spotify.artist_related_artists(mini_hiori_uri)
 - 関連アーティスト検索の元データ(好きなアーティスト)の保存先としてDynamoDBを利用します
     - [作成方法等参考](https://qiita.com/blackcat5016/items/e41f7fb8b6b7a0c9b90b)
     - 請求モードはオンデマンドでよいと思います
-- テーブル定義は以下になります
+- テーブル内のattributeは以下のようになります
     - セカンダリインデックスはなしでOKです
 
 |  spotify_uri(PK)  |  name  |  craeted_date  |
