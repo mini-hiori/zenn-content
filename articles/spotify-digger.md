@@ -20,7 +20,7 @@ published: false
 - 登録しておいた好きなアーティストを元に、Spotifyから自動で関連アーティストを検索します
 - 検索結果のアーティスト名と最新アルバム名、およびそのURLがDiscordに投稿されます
 
-![正直想像していたよりうまくいってうれしい](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/lambda-rss-reader-bot/discord-webhook-example.png)
+![正直想像していたよりうまくいってうれしい](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/spotify-digger/dig_result.png)
 
 ## 構成図
 
@@ -67,7 +67,7 @@ spotify.artist_related_artists(mini_hiori_uri)
 ```
 - 検索のキーに利用しているSpotify URI(Spotify側で付与されているアーティストのユニークキー)は、以下画像のようにSpotifyのシェアボタンから入手できます
 
-![](https://raw.githubusercontent.com/mini-hiori/spotify-digger/master/docs/architecture.png)
+![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/spotify-digger/get_spotify_uri.png)
 
 - この検索結果をDiscordにwebhookで投稿すれば、検索部分に関しては完成です
     - 今回は検索結果アーティストの曲情報も手に入れるためにartist_albums関数を追加で利用しています
