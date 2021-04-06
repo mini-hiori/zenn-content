@@ -13,11 +13,11 @@ published: false
 - 以下を試しました
     - Spotify API
     - DynamoDB
-    - API Gateway(Lambdaプロキシ統合)
+    - API Gateway(Lambda統合)
 - [前回](https://zenn.dev/mini_hiori/articles/lambda-rss-reader-bot)と重複する部分に関しては説明を省いている部分があります
 
 ## 成果物
-- 登録しておいた好きなアーティストを元に、Spotifyから自動で関連アーティストを検索します
+- 登録しておいたアーティストを元に、Spotifyから自動で関連アーティストを検索します
 - 検索結果のアーティスト名と最新アルバム名、およびそのURLがDiscordに投稿されます
 
 ![正直想像していたよりうまくいってうれしい](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/spotify-digger/dig_result.png)
