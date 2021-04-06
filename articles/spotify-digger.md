@@ -8,12 +8,13 @@ published: false
 
 ## はじめに
 - 生まれながらにSpotifyを無限にdigりたい欲求があったので、自動でdigってくれるサーバーレスAPIを作りました
-    - ちなみにdigるとは「曲を探す」程度の意味です
-    - 良い曲があったら教えて欲しい欲求もあったので、dig結果はDiscordに通知する体制としました
+    - digる→「曲を探す」程度の意味です
+    - 良い曲があったら教えて欲しい欲求もあったので、digった結果はDiscordに通知する体制としました
 - 以下を試しました
     - Spotify API
     - DynamoDB
     - API Gateway(Lambdaプロキシ統合)
+- [前回](https://zenn.dev/mini_hiori/articles/lambda-rss-reader-bot)と重複する部分に関しては説明を省いている部分があります
 
 ## 成果物
 - 登録しておいた好きなアーティストを元に、Spotifyから自動で関連アーティストを検索します
@@ -28,7 +29,8 @@ published: false
 - 動作手順は以下のようになります
     1. あらかじめDynamoDBに好きなアーティスト情報を保存しておく
     2. LambdaがDynamoDBから好きなアーティスト情報を取得する
-    3. LambdaがSpotifyAPIを利用してDynamoDB内アーティストの関連アーティスト+最新アルバム情報を検索する
+    3. LambdaがDynamoDB内のアーティストの関連アーティスト+最新アルバム情報を検索する
+        - Spotify APIを利用して検索を行います
         - 検索結果が3人を超える場合は、ランダムに選んで3人のみ残します
         - 検索結果はDynamoDBに登録され、次回の検索の種になります
     4. Lambdaが3の検索結果をwebhookでDiscordに通知する
@@ -41,11 +43,11 @@ published: false
 - リポジトリ全体はこちら
     - https://github.com/mini-hiori/spotify-digger
 
-### Lambda①(SpotifyAPIの利用)
+### Lambda(アーティスト検索、Discord投稿)
 - Spotifyの検索のためにSpotifyAPI利用権の取得が必要です
     - Spotifyのアカウントを持っていれば非商用なら無償で利用できます([参考](https://qiita.com/shirok/items/ba5c45511498b75aac27))
 - PythonからSpotifyAPIを利用する際は[spotipy](https://spotipy.readthedocs.io/en/2.17.1/)を利用します
-    - 関連アーティストの検索はartist_related_artists()を利用します。例えば私の関連アーティストを得る場合は以下のコードで可能です
+    - 関連アーティストの検索はspotipyのartist_related_artists関数を利用します。例えば私の関連アーティストを得る場合は以下のコードで可能です
 
 ```
 import spotipy
@@ -63,15 +65,15 @@ spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 mini_hiori_uri = "spotify:artist:1nSdmeM9MUMLbhoKdf0JS0"
 spotify.artist_related_artists(mini_hiori_uri)
 ```
-- 検索のキーにはSpotify URI(Spotify側で付与されているアーティストのユニークキー)が使えます。以下画像のようにSpotifyのシェアボタンから入手できます
+- 検索のキーに利用しているSpotify URI(Spotify側で付与されているアーティストのユニークキー)は、以下画像のようにSpotifyのシェアボタンから入手できます
 
 ![](https://raw.githubusercontent.com/mini-hiori/spotify-digger/master/docs/architecture.png)
 
-- artist_related_artists()で関連アーティストのURIが得られるので、さらにartist_albums()を実行して最新アルバム情報を手に入れます
-    - この検索結果をDiscordにwebhookで投稿すれば、検索部分に関しては完成です
-    - レコメンド対象にするアーティストはLambda1回の実行あたり3人までとしています
+- この検索結果をDiscordにwebhookで投稿すれば、検索部分に関しては完成です
+    - 今回は検索結果アーティストの曲情報も手に入れるためにartist_albums関数を追加で利用しています
+    - レコメンド対象にするアーティストはLambda1回の実行あたり3人までとしました
 
-### Lambda②(DynamoDBとの連携)
+### DynamoDB(アーティスト情報の保存)
 - SpotifyAPIでの関連アーティスト検索の種となるアーティスト情報を保存する先が必要です。今回はDynamoDBを利用します
     - [作成方法等参考](https://qiita.com/blackcat5016/items/e41f7fb8b6b7a0c9b90b)
     - 請求モードはオンデマンドでよいと思います
@@ -91,12 +93,17 @@ spotify.artist_related_artists(mini_hiori_uri)
     - SpotifyAPIの検索結果をDynamoDBにput
     - DynamoDB内のレコード数が一定数(300件)を超過していたら、putしたレコード数と同数のレコードをランダムに削除
         - 実行時間やコストが無限に増えることを防止します
-- PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します]()
+    - PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します]()
 
 - ここまでで、自動digアプリとしての基本的な機能は完成です
 
-### APIGateway(Lambdaプロキシ統合)
-- 
+### APIGateway+Lambda(アーティスト検索のリロード)
+- 定期実行によるdig結果が気に入らなかった場合のために、LambdaをAPIGatewayと統合して簡単に検索を再実行できるようにします
+    - 具体的な実行手順は[こちらなどを参考にしてください](https://dev.classmethod.jp/articles/api-gateway-lambda-integration-fabu/)
+- APIGatewayとLambdaの統合にはプロキシ統合と非プロキシ統合の2種類がありますが、今回はGETどちらでもかまいません
+    - プロキシ統合の有無による主な違いはLambdaの出力結果のマッピングをAPIGatewayに移譲するかどうかです。Lambdaの出力結果をAPIを介して他ツールで利用したい場合はプロキシ統合が必要になるはず
+    - プロキシ統合を利用する場合は、Lambdaの返却値をAPIGatewayが解釈できる形に合わせることに注意してください
+        - [参考](https://qiita.com/polarbear08/items/3f5b8584154931f99f43)
 
 ### そのほか
 - 以下サービス・機能を利用していますが、これらは[前回記事](https://zenn.dev/mini_hiori/articles/lambda-rss-reader-bot#%E5%AE%9F%E8%A3%85)とほぼ設定が同じのため割愛します
@@ -109,8 +116,8 @@ spotify.artist_related_artists(mini_hiori_uri)
         - 今回はActionsのトリガーをmasterへのpush時に変更しています。[yamlはこちら](https://github.com/mini-hiori/spotify-digger/blob/master/.github/workflows/main.yml)
 
 ## 改善点
-- IaC化が未了です。Lambdaのコンテナイメージ実行に汎用性があることがわかってきたので、この部分だけでもワンボタン化したいところです
+- IaC化が未了です。[前回](https://zenn.dev/mini_hiori/articles/lambda-rss-reader-bot)と合わせてLambdaのコンテナイメージ実行に汎用性があることがわかってきたので、この部分だけでもワンボタン化したいところです
 - DynamoDB内のアーティストのメンテナンス手段に関して、AWSコンソール経由で手動修正/削除する以外にありません。レコメンドが好みでない方向に向かった場合の軌道修正が若干手間です
-    - フロントエンドアプリを作れば解決しそうです
+    - フロントエンドアプリから操作できるようにしてみたいです(願望)
 - DynamoDBが常に全scanなのはコスト・パフォーマンス両面で不適切です
     - パーティションキーを連番のidとし、Lambda側で抽選したidのアーティストのみを抽出するようにすると改善されそうです
