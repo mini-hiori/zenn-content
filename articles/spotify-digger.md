@@ -86,7 +86,7 @@ spotify.artist_related_artists(mini_hiori_uri)
 
 - 最初に検索の種にするアーティスト情報についてはAWSコンソール上から手動で投入してしまってかまいません
 
-![](https://raw.githubusercontent.com/mini-hiori/spotify-digger/master/docs/architecture.png)
+![](https://raw.githubusercontent.com/mini-hiori/zenn-content/main/images/spotify-digger/dynamodb_create.png)
 
 - Lambdaでは以下操作を行います
     - Lambda起動時にDynamoDBの全データを取得(scan)
