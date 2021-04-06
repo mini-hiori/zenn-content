@@ -28,16 +28,15 @@ published: false
 
 - 動作手順は以下のようになります
     1. あらかじめDynamoDBに好きなアーティスト情報を保存しておく
-    2. LambdaがDynamoDBから好きなアーティスト情報を取得する
-    3. LambdaがDynamoDB内のアーティストの関連アーティスト+最新アルバム情報を検索する
-        - Spotify APIを利用して検索を行います
-        - 検索結果が3人を超える場合は、ランダムに選んで3人のみ残します
+    2. LambdaがDynamoDBからアーティスト情報を取得する
+    3. Lambdaが関連アーティスト+最新アルバム情報を検索する
+        - Spotify APIを利用して検索
+        - 検索結果が3人を超える場合は、ランダムに選んで3人まで採用
         - 検索結果はDynamoDBに登録され、次回の検索の種になります
     4. Lambdaが3の検索結果をwebhookでDiscordに通知する
     5. 3の検索結果が気に入らなければ、Lambdaに統合されたAPIGatewayを叩いてリロードする
 - LambdaはEventbridgeにより定期実行されます
 - webhookのURLなどLambdaから利用するパラメータはSystems Managerに保存します
-    - 構成図にないので書き足しておく
 
 ## 実装
 - リポジトリ全体はこちら
