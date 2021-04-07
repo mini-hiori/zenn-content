@@ -86,10 +86,10 @@ spotify.artist_related_artists(mini_hiori_uri)
 ### Lambda(検索、DynamoDBの操作)
 - SpotifyAPIを利用した検索とDynamoDBの操作のためにLambdaを利用します
 - 1回のLambda実行で以下の操作を行います
-    1. Lambda起動時にDynamoDBの全データを取得(scan)
+    1. Lambda起動時にDynamoDBの全データを取得
     2. DynamoDB内のアーティストデータを利用してSpotify検索。新しいアーティストの情報を3人まで得る
     3. Spotify検索結果をDynamoDBにput
-    4. DynamoDB内のレコード数が一定数(300件)を超過していたら、putしたレコード数と同数のレコードをランダムに削除
+    4. DynamoDB内のレコード数が一定数を超過していたら、putしたレコード数と同数のレコードをランダムに削除
         - 実行時間やコストが無限に増えることを防止します
     5. Spotify検索結果をwebhook経由でDiscordに投稿
 - PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します](https://zenn.dev/mini_hiori/articles/python-code-for-dynamodb)
