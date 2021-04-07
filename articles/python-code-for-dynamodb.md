@@ -37,7 +37,8 @@ def scan_dynamodb() -> Dict:
     scan_result: Dict = table.scan()
     return scan_result["Items"]
 ```
-- Items属性以外のscan_resultの中身は、取得できたレコード数やDynamoDBへの接続結果等が入っています
+- scan_resultには、Items属性以外にも取得できたレコード数やDynamoDBへの接続結果等が入っています
+    - DynamoDBのitemに関する情報が入っているのはItemsのみなので、通常はこれだけ取り出してしまってかまわないと思います
 
 ## Put
 - DynamoDBに1つitemを追加する処理です
