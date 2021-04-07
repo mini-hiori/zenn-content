@@ -55,7 +55,7 @@ def put_dynamodb(put_item: Dict) -> None:
     table.put_item(Item=put_item)
     return None
 ```
-- テーブル作成時に設定したプライマリキーを持たない情報をputしようとするとエラーになります
+- テーブル作成時に設定したプライマリキーを持たないdictをputしようとするとエラーになります
 
 ## Delete
 - DynamoDBから1つitemを削除する処理です
