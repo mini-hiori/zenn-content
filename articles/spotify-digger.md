@@ -46,7 +46,7 @@ published: false
 - Spotifyの検索のためにSpotifyAPI利用権の取得が必要です
     - Spotifyのアカウントを持っていれば非商用なら無償で利用できます([参考](https://qiita.com/shirok/items/ba5c45511498b75aac27))
 - PythonからSpotifyAPIを利用する際は[spotipy](https://spotipy.readthedocs.io/en/2.17.1/)を利用します
-    - 関連アーティストの検索はspotipyのartist_related_artists関数を利用します。例えば私の関連アーティストを得る場合は以下のコードで可能です
+    - 関連アーティストの検索はspotipyのartist_related_artists関数を利用します。例えば[私](https://open.spotify.com/artist/1nSdmeM9MUMLbhoKdf0JS0?si=s_cG-uWYQ-uQj-jm7lvfOw)の関連アーティストを得る場合は以下のコードで可能です
 
 ```
 import spotipy
