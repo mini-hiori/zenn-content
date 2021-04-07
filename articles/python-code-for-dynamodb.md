@@ -61,6 +61,8 @@ def put_dynamodb(put_item: Dict) -> None:
 - DynamoDBから1つitemを削除する処理です
 
 ```
+import boto3
+
 def delete_dynamodb(key: str, value: str) -> None:
     """
     DynamoDBから情報を削除
