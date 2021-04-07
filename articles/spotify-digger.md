@@ -99,7 +99,7 @@ spotify.artist_related_artists(mini_hiori_uri)
 ### APIGateway+Lambda(アーティスト検索のリロード)
 - 定期実行によるdig結果が気に入らなかった場合のために、LambdaをAPIGatewayと統合して簡単に検索を再実行できるようにします
     - 具体的な実行手順は[こちらなどを参考にしてください](https://dev.classmethod.jp/articles/api-gateway-lambda-integration-fabu/)
-- APIGatewayとLambdaの統合にはプロキシ統合と非プロキシ統合の2種類がありますが、今回はGETどちらでもかまいません
+- APIGatewayとLambdaの統合にはプロキシ統合と非プロキシ統合の2種類がありますが、今回はどちらでもかまいません
     - プロキシ統合の有無による主な違いはLambdaの出力結果のマッピングをAPIGatewayに移譲するかどうかです。Lambdaの出力結果をAPIを介して他ツールで利用したい場合はプロキシ統合が必要になるはず
     - プロキシ統合を利用する場合は、Lambdaの返却値をAPIGatewayが解釈できる形に合わせることに注意してください([参考](https://qiita.com/polarbear08/items/3f5b8584154931f99f43))
 
