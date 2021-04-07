@@ -92,7 +92,7 @@ spotify.artist_related_artists(mini_hiori_uri)
     4. DynamoDB内のレコード数が一定数(300件)を超過していたら、putしたレコード数と同数のレコードをランダムに削除
         - 実行時間やコストが無限に増えることを防止します
     5. Spotify検索結果をwebhook経由でDiscordに投稿
-- PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します]()
+- PythonからDynamoDBを利用する部分のコードに関しては[別記事に記載します](https://zenn.dev/mini_hiori/articles/python-code-for-dynamodb)
 
 - ここまでで、自動digアプリとしての基本的な機能は完成です
 
