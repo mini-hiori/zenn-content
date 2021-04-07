@@ -3,7 +3,7 @@ title: "コピペでできる:PythonからDynamoDB操作"
 emoji: "⚡"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [AWS,python,DynamoDB]
-published: false
+published: true
 ---
 
 ## はじめに
