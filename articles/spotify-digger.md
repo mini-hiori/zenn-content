@@ -33,8 +33,8 @@ published: false
         - Spotify APIを利用して検索
         - 検索結果が3人を超える場合は、ランダムに選んで3人まで採用
         - 検索結果はDynamoDBに登録され、次回の検索の種になります
-    4. Lambdaが3の検索結果をwebhookでDiscordに通知する
-    5. 3の検索結果が気に入らなければ、Lambdaに統合されたAPIGatewayを叩いてリロードする
+    4. Lambdaが3.の検索結果をwebhookでDiscordに通知する
+    5. 検索結果が気に入らなければ、Lambdaに統合されたAPIGatewayを叩いて2.以降を再実行する
 - LambdaはEventbridgeにより定期実行されます
 - webhookのURLなどLambdaから利用するパラメータはSystems Managerに保存します
 
