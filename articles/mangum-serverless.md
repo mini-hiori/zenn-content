@@ -157,11 +157,14 @@ functions:
 - デプロイ処理(sls deploy)が問題なく成功すれば、出力されたURLからAPI実行できるはずです
 ```python
 >>> import requests
+>>> import json
 >>> url = "https://xxxx.execute-api.ap-northeast-1.amazonaws.com/prod/hello"
 >>> response = requests.get(url)
->>> import json
 >>> json.loads(response.text)["message"]
 '[GET]hello, visitor!'
+>>> response = requests.post(url,json={"name":"mini_hiori"})
+>>> json.loads(response.text)["message"]
+'[POST]hello, mini_hiori!'
 ```
 
 ## メリット
