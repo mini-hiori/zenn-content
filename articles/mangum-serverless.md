@@ -37,7 +37,7 @@ Mangum is an adapter for using ASGI applications with AWS Lambda & API Gateway.
     - 通常のFastAPIの記述に加えるのは、最終行の`handler = Mangum(app)`のみです。  
     この文により、MangumがFastAPIのインスタンスをAPIGatewayと統合できるLambdaのhandlerに変換してくれます
 ```python
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from mangum import Mangum
 from pydantic import BaseModel
 
