@@ -18,10 +18,16 @@ published: false
     - Lambdaはコンテナイメージから起動します
 ![構成図](https://raw.githubusercontent.com/mini-hiori/mangum-test/main/docs/architecture.png)
 - ECRへのデプロイはGithub Actions、APIGateway+Lambdaのデプロイはserverless frameworkでそれぞれ自動化しています
+    - serverless frameworkに与えるパラメータはSystems Managerパラメータストアに配置します
 
 ## ソースコード
 - リポジトリ全体はこちら
     - https://github.com/mini-hiori/mangum-test
+- 核になるのは、Lambda用Pythonファイル(src/app.py)、Dockerfile、serverless framework用設定ファイル(serverless.yml)の3つです
+- デプロイまでの手順は以下の通りです
+    1. app.pyを含むコンテナイメージをECRにアップロードする
+    2. Systems Managerパラメータストアにイメージダイジェスト、AWSアカウントIDを登録
+    3. serverless.ymlでLambda+APIGatewayをデプロイ
 
 ### Python
 - パラメータを受け取って返答するだけの単純なAPIを作成します
@@ -149,7 +155,7 @@ functions:
 
 ## うれしい点
 - FastAPI/Flaskユーザーであれば、Lambda特有の文法を覚えなくてもLambdaが利用できます
-- APIの実行環境として、ECS,Kubenetes等とLambdaを簡単に行き来できるようになります
+- APIの実行環境として、ECS,Kubernetes等とLambdaを簡単に行き来できるようになります
     - まずLambdaでスモールスタートして、あまり利用が高頻度だったり処理時間が長すぎるなど事情があれば他に移動するのがよさそうです
     - どのサービスもコンテナイメージが使えるので、git→ECRのCIは使い回すことができます
 
