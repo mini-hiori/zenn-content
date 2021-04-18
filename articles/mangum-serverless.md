@@ -36,7 +36,7 @@ Mangum is an adapter for using ASGI applications with AWS Lambda & API Gateway.
 - パラメータを受け取って返答するだけの単純なAPIを作成します
     - 通常のFastAPIの記述に加えるのは、最終行の`handler = Mangum(app)`のみです。  
     この文により、MangumがFastAPIのインスタンスをAPIGatewayと統合できるLambdaのhandlerに変換してくれます
-```
+```python
 from fastapi import FastAPI, HTTPException
 from mangum import Mangum
 from pydantic import BaseModel
@@ -83,7 +83,7 @@ handler = Mangum(app)
 - 以下が満たされていれば、そのまま動くと思います
     - 前項のpythonファイルが`src/app.py`として保存されている
     - ルートディレクトリにrequirements.txtがあり、`fastapi`,`mangum`,`pydantic`が記載されている
-```
+```dockerfile
 ARG FUNCTION_DIR="/home/app/"
 ARG RUNTIME_VERSION="3.8"
 ARG DISTRO_VERSION="3.12"
@@ -131,7 +131,7 @@ CMD [ "src/app.handler" ]
     - AccountID: AWSアカウントのID(数字12桁)
     - MangumRepository: 前項のDockerイメージをアップロードしたECRの名称+ダイジェスト
         - リポジトリ名@sha256:(ハッシュ値) の体裁です
-```
+```yaml
 service: mangum-test # 任意のプロジェクト名に変更しておいてください
 
 provider:
