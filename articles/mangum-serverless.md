@@ -3,7 +3,7 @@ title: "[python,AWS]FastAPIで作るサーバーレスAPI(Mangum)"
 emoji: "🐣"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [AWS,Lambda,python,Docker,Serverless Framework]
-published: false
+published: true
 ---
 
 ## はじめに
