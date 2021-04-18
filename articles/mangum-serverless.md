@@ -1,5 +1,5 @@
 ---
-title: "[python,AWS]FastAPIで作るLambda+APIGateway(Mangum)"
+title: "[python,AWS]FastAPIで作るサーバーレスAPI(Mangum)"
 emoji: "🐣"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [AWS,Lambda,python,Docker,Serverless Framework]
@@ -11,6 +11,8 @@ published: false
 ```
 (引用)Mangum is an adapter for using ASGI applications with AWS Lambda & API Gateway.
 ```
+- Mangumは[ASGI](https://asgi.readthedocs.io/en/latest/)ベースのAPIとLambda+APIGatewayを中継してくれるアダプタになります
+    - FastAPIに限らず、[Responder](https://responder.kennethreitz.org/en/latest/#)等でも利用可能です
 
 
 ## 構成図
