@@ -155,6 +155,12 @@ functions:
 - 末尾のeventsの部分でAPIGatewayが作成されます
     - pathを/{proxy+}、methodをANYにすると、APIGatewayは任意のパスへのアクセスをLambdaに渡します。FastAPI側でエンドポイントやパラメータを追加修正した場合でもAPIGatewayの修正が不要になります
 - デプロイ処理(sls deploy)が問題なく成功すれば、出力されたURLからAPI実行できるはずです
+```python
+>>> import requests
+>>> url = "https://xxxx.execute-api.ap-northeast-1.amazonaws.com/prod/hello"
+>>> response = requests.get(url)
+>>> response.text
+```
 
 ## 参考
 - [Serverless Framework+mangum+FastAPIで、より快適なPython API開発環境を作る](https://tech.jxpress.net/entry/2020/03/29/170000)
@@ -162,7 +168,7 @@ functions:
 ## 所感、あとがき
 - FastAPI/Flaskユーザーであれば、Lambda特有の文法を覚えなくてもLambdaが利用できます
 - APIの実行環境として、ECS,EKSとLambdaを簡単に行き来できるようになります
-    - まずLambdaでスモールスタートして、あまり利用が高頻度だったり処理時間が長すぎるなど事情があれば他に移動するのがよさそうです
+    - まずLambdaでスモールスタートして、あまり利用が高頻度だったり処理時間が長すぎる、コールドスタートが気になるなど事情があれば他に移動するのがよさそうです
     - どのサービスもコンテナイメージが使えるので、git→ECRのCIは使い回すことができます
 ----
 - [過去の](https://zenn.dev/mini_hiori/articles/lambda-rss-reader-bot)[記事](https://zenn.dev/mini_hiori/articles/spotify-digger)でIaCを課題感として挙げ続けていたところ、serverless frameworkの導入でやっと実現でき満足しました
