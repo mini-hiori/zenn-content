@@ -138,7 +138,7 @@ provider:
   name: aws
   stage: prod
   region: ap-northeast-1
-  deploymentBucket: mini-serverless-framework # デプロイ時に作成されるS3
+  deploymentBucket: mangum-test-xxxx # デプロイ時に作成されるS3 任意のバケット名に変更しておいてください
   logRetentionInDays: 30 # Cloudwatchのログ保存期間
 
 functions:
