@@ -9,7 +9,8 @@ published: false
 ## はじめに
 - [Mangum](https://github.com/jordaneremieff/mangum)を使うとFastAPI製APIを手軽にLambda+APIGateway化できるよ、という紹介です
 ```
-(引用)Mangum is an adapter for using ASGI applications with AWS Lambda & API Gateway.
+Mangum is an adapter for using ASGI applications with AWS Lambda & API Gateway.
+(公式readme.mdより)
 ```
 - Mangumは[ASGI](https://asgi.readthedocs.io/en/latest/)ベースのAPIとLambda+APIGatewayを中継してくれるアダプタになります
     - FastAPIに限らず、[Responder](https://responder.kennethreitz.org/en/latest/#)等でも使えるようです
