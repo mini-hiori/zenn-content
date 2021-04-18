@@ -159,7 +159,9 @@ functions:
 >>> import requests
 >>> url = "https://xxxx.execute-api.ap-northeast-1.amazonaws.com/prod/hello"
 >>> response = requests.get(url)
->>> response.text
+>>> import json
+>>> json.loads(response.text)["message"]
+'[GET]hello, visitor!'
 ```
 
 ## 参考
