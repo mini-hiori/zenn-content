@@ -153,7 +153,7 @@ functions:
 ```
 
 - 末尾のeventsの部分でAPIGatewayが作成されます
-    - pathを/{proxy+}、methodをANYにすると、APIGatewayは任意のパスへのアクセスをLambdaに流してくれるようになります。FastAPI側でパスを増加させた場合でもAPIGatewayの修正が不要になります
+    - pathを/{proxy+}、methodをANYにすると、APIGatewayは任意のパスへのアクセスをLambdaに渡します。FastAPI側でエンドポイントやパラメータを追加修正した場合でもAPIGatewayの修正が不要になります
 - デプロイ処理(sls deploy)が問題なく成功すれば、出力されたURLからAPI実行できるはずです
 
 ## うれしい点
