@@ -3,7 +3,7 @@ title: "TypeScriptで動画・音声形式変換(fluent-ffmpeg)"
 emoji: "🎥"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [TypeScript,Docker,Node.js]
-published: false
+published: true
 ---
 
 ## はじめに
