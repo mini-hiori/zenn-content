@@ -122,7 +122,8 @@ docker-compose up
 ## 成果物
 - ここまでの内容とほぼ同じ内容が以下にあります。再実装する場合など必要に応じて参照ください
     - 同一ディレクトリの動画や音声を全て変換対象にするために[glob](https://www.npmjs.com/package/glob)を利用している点が主な追加点です
-[![mini-hiori/ts-fix-framerate - GitHub](https://gh-card.dev/repos/mini-hiori/ts-fix-framerate.svg)](https://github.com/mini-hiori/ts-fix-framerate)
+
+https://github.com/mini-hiori/ts-fix-framerate
 
 
 ## 参考
