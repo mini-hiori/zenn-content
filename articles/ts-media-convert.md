@@ -120,7 +120,7 @@ docker-compose up
 ```
 
 ## 成果物
-- ここまでの内容とほぼ同じ内容が以下にあります。再実装する場合など必要に応じて参照ください
+- ここまでとほぼ同じ内容が以下にあります。再実装する場合など必要に応じて参照ください
     - 同一ディレクトリの動画や音声を全て変換対象にするために[glob](https://www.npmjs.com/package/glob)を利用している点が主な追加点です
 
 https://github.com/mini-hiori/ts-fix-framerate
@@ -131,5 +131,6 @@ https://github.com/mini-hiori/ts-fix-framerate
 - [TypeScript の esModuleInterop フラグについて](https://numb86-tech.hatenablog.com/entry/2020/07/11/160159)
 
 ## おわりに
-- TypeScriptでfluent-ffmpegを利用する日本語記事は軽く検索した感じなかったので、どなたかの参考になれば幸いです
+- TypeScriptでfluent-ffmpegを利用する日本語記事は軽く検索した感じなかったので、  
+どなたかの参考になれば幸いです
 - GWに初めてTypeScript触り始めたくらいの新参なのでマサカリ歓迎です
