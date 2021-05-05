@@ -8,7 +8,7 @@ published: false
 
 ## はじめに
 - 生まれながらにTypeScriptで動画や音声の形式を変換したい欲求があったところ、案外簡単にできたのでその方法の紹介です
-- 本当に少しですが環境構築が要るので、Docker上で動くようにしてその手間をできるだけ削減できるようにもしています
+- 本当に少しですが環境構築が要るので、Docker上で動くようにしてその手間をできるだけ削減できるようにもしました
 
 ## 使うもの
 - [ffmpeg](https://www.ffmpeg.org/)
@@ -16,7 +16,7 @@ published: false
 - [fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg)
     - ffmpegのnode.js用ライブラリです。JavaScript/TypeScriptから動画や音声を変換できるようになります
     - TypeScriptから使うので[@types/fluent-ffmpeg](https://www.npmjs.com/package/@types/fluent-ffmpeg)も導入します
-- また、TypeScriptの実行用に[typescript](https://www.npmjs.com/package/typescript)と[ts-node](https://www.npmjs.com/package/ts-node)も導入します
+- TypeScriptの実行用に[typescript](https://www.npmjs.com/package/typescript)と[ts-node](https://www.npmjs.com/package/ts-node)も導入します
 
 ## 実装
 ### TypeScript
