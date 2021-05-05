@@ -68,7 +68,7 @@ ffmpeg("input.wav")
 ```
 
 ## 環境構築して動かす
-### Node.js関連
+### TypeScript/Node.js関連
 - `使うもの`で紹介したライブラリを以下でインストールします
 ```
 npm install fluent-ffmpeg @types/fluent-ffmpeg typescript ts-node
