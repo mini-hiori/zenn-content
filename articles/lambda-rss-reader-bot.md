@@ -31,7 +31,9 @@ published: true
 
 ## 実装
 - リポジトリ全体はこちら
-    - https://github.com/mini-hiori/lambda-rss-reader-bot
+
+https://github.com/mini-hiori/lambda-rss-reader-bot
+
 ### RSSリーダー本体(Lambda)
 - RSSの取得&解析はfeedparserというライブラリを利用して行います([参考](https://note.nkmk.me/python-feedparser-tutorial/))
     - 最小構成は以下です、get_rssにRSSのURLを渡すと記事情報が得られます

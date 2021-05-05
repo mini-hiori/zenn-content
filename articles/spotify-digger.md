@@ -40,7 +40,8 @@ published: true
 
 ## 実装
 - リポジトリ全体はこちら
-    - https://github.com/mini-hiori/spotify-digger
+
+https://github.com/mini-hiori/spotify-digger
 
 ### Spotify APIの利用(アーティスト検索)
 - Spotifyの検索のためにSpotifyAPI利用権の取得が必要です

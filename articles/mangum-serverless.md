@@ -25,7 +25,9 @@ Mangum is an adapter for using ASGI applications with AWS Lambda & API Gateway.
 
 ## ソースコード
 - リポジトリ全体はこちら
-    - https://github.com/mini-hiori/mangum-test
+
+https://github.com/mini-hiori/mangum-test
+
 - 核になるのは、Lambda用Pythonファイル(src/app.py)、Dockerfile、serverless framework用設定ファイル(serverless.yml)の3つです
 - デプロイまでの手順は以下の通りです
     1. app.pyを含むコンテナイメージをECRにアップロードする
