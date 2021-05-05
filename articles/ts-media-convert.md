@@ -64,7 +64,7 @@ ffmpeg("input.wav")
     .toFormat('mp3')
     .on('end', () => {
         console.log(`変換完了`);
-    }).save("output.mp4");
+    }).save("output.mp3");
 ```
 
 ## 環境構築して動かす
