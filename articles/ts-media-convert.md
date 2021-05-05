@@ -73,7 +73,8 @@ ffmpeg("input.wav")
 ```
 npm install fluent-ffmpeg @types/fluent-ffmpeg typescript ts-node
 ```
-- また、前項のmain.tsをコンパイルするために以下を記載したtsconfig.jsonが必要です。詳しくは[こちら](https://numb86-tech.hatenablog.com/entry/2020/07/11/160159)など
+- また、前項のmain.tsをコンパイルするために以下を記載したtsconfig.jsonが必要です。  
+詳しくは[こちら](https://numb86-tech.hatenablog.com/entry/2020/07/11/160159)など
 ```json
 {
   "compilerOptions": {
@@ -82,7 +83,8 @@ npm install fluent-ffmpeg @types/fluent-ffmpeg typescript ts-node
 }
 ```
 ### Docker関連
-- ffmpegはCLIアプリケーションのためインストールが必要です。再現性のためにDockerコンテナ内でインストールするようにします
+- ffmpegはCLIアプリケーションのためインストールが必要です。  
+再現性のためにDockerコンテナ内でインストールするようにします
 ```Dockerfile
 # Dockerfile
 FROM node:16-buster
@@ -97,7 +99,7 @@ RUN apt install -y ffmpeg
 
 CMD [ "node_modules/.bin/ts-node","main.ts"]
 ```
-- 変換結果のファイルを得るためにマウント設定を入れた状態でdockerを起動します
+- 変換結果のファイルを得るためにマウント設定を入れた状態でDockerを起動します
 ```yaml
 # docker-compose.yml
 version: '3'
